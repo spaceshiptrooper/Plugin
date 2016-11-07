@@ -1,0 +1,8 @@
+# Turn the RewriteEngine on in order to use mod_rewrite
+RewriteEngine On
+
+# Redirect all request to the index page
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-l
+RewriteRule ^(.+)$ index.php?url=$1 [QSA,L]
