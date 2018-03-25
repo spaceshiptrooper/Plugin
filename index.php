@@ -26,10 +26,18 @@ foreach($bootstraps as $bootstrap) {
 	// Check to see if the file exists first. If it doesn't, we are not going to require/ include it.
 	if(file_exists($bootstrap)) {
 
-		// Basically taking the full path of bootstrap and then stripping everything out until we get the
-		// filename without the bootstrap file.
-		$name = substr(strstr(substr(strstr($bootstrap, DS), 1), DS), 1);
-		$name = strtr($name, array(DS . 'bootstrap.php' => ''));
+		// Explode the bootstrap file by the directory separator.
+		$explode = explode(DS, $bootstrap);
+
+		// Go to the end of the array.
+		$end = end($explode);
+
+		// Go back one from the end of the array.
+		// This should go from /bootstrap.php to /{function_name}.
+		$name = prev($explode);
+
+		// This method is a lot easier to implement than the older one
+		// since there is no need for any manual character stripping.
 
 		// The plugin_hook function works as is.
 		// {full_path_to_file}, {function+filename}
